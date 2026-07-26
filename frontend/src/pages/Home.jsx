@@ -19,8 +19,14 @@ function Home() {
         <h1>ReadyNow AI</h1>
 
         <p>
-          Offline disaster preparedness and emergency guidance powered by
-          Gemma 4.
+        Offline disaster preparedness and emergency guidance powered by
+        Gemma 4.
+        </p>
+
+        <p className="disclaimer">
+        ReadyNow AI is an AI assistant and may not always provide perfect
+        information. Always verify guidance with trusted emergency services,
+        local authorities, and official safety resources.
         </p>
 
         <div className="card-grid">

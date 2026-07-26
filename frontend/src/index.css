@@ -84,3 +84,9 @@ body {
 .feature-card:hover {
   transform: translateY(-4px);
 }
+
+.disclaimer {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
