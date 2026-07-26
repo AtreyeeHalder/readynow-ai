@@ -19,9 +19,12 @@ Assistant:
         "model": MODEL_NAME,
         "prompt": prompt,
         "stream": False,
+        "enable_thinking": False,
         "options": {
-            "temperature": 0.2,
-            "num_predict": 80,
+            "temperature": 0.1,
+            "num_predict": 200,
+            "top_k": 20,
+            "top_p": 0.8,
         },
     }
 
@@ -34,7 +37,12 @@ Assistant:
 
         response.raise_for_status()
 
-        return response.json()["response"]
+        text = response.json().get("response", "").strip()
+
+        if not text:
+            return "Sorry, I couldn't generate guidance. Please try again."
+
+        return text
 
     except Exception as e:
         return f"Backend error: {e}"
