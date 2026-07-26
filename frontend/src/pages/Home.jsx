@@ -1,17 +1,21 @@
 import Navbar from "../components/Navbar";
 import ChatBox from "../components/ChatBox";
-import UploadCard from "../components/UploadCard";
-import PlannerCard from "../components/PlannerCard";
 
 function Home() {
   return (
     <>
       <Navbar />
 
-      <main>
+      <main className="container">
+
+        <h1>ReadyNow AI</h1>
+
+        <p>
+          Offline AI disaster preparedness and emergency assistant
+        </p>
+
         <ChatBox />
-        <UploadCard />
-        <PlannerCard />
+
       </main>
     </>
   );
