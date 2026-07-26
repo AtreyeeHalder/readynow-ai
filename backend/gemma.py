@@ -1,28 +1,29 @@
 import httpx
 from prompts import SYSTEM_PROMPT
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
+OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL_NAME = "gemma4:latest"
 
 
 def generate_response(message: str) -> str:
-    prompt = f"""
-{SYSTEM_PROMPT}
-
-User:
-{message}
-
-Assistant:
-"""
 
     payload = {
         "model": MODEL_NAME,
-        "prompt": prompt,
+        "messages": [
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT,
+            },
+            {
+                "role": "user",
+                "content": message,
+            },
+        ],
         "stream": False,
-        "enable_thinking": False,
+        "think": False,
         "options": {
             "temperature": 0.1,
-            "num_predict": 200,
+            "num_predict": 100,
             "top_k": 20,
             "top_p": 0.8,
         },
@@ -37,7 +38,9 @@ Assistant:
 
         response.raise_for_status()
 
-        text = response.json().get("response", "").strip()
+        data = response.json()
+
+        text = data["message"]["content"].strip()
 
         if not text:
             return "Sorry, I couldn't generate guidance. Please try again."
