@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from schemas import ChatRequest
+from gemma import generate_response
 
 app = FastAPI()
 
@@ -25,5 +27,5 @@ def root():
 @app.post("/chat")
 def chat(request: ChatRequest):
     return {
-        "response": f"You said: {request.message}"
+        "response": generate_response(request.message)
     }

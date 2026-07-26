@@ -1,20 +1,7 @@
-import { useEffect, useState } from "react";
+import Home from "./pages/Home";
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  }, []);
-
-  return (
-    <div>
-      <h1>ReadyNow AI</h1>
-      <p>{message}</p>
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;
