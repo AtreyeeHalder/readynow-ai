@@ -43,8 +43,14 @@ const ChatBox = forwardRef(function ChatBox(props, ref) {
           },
 
           body: JSON.stringify({
-            message: userMessage,
-          }),
+                messages: [
+                    ...messages,
+                    {
+                        sender: "user",
+                        text: userMessage,
+                    },
+                ],
+            }),
         }
       );
 

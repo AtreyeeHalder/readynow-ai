@@ -5,7 +5,7 @@ OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL_NAME = "gemma4:latest"
 
 
-def generate_response(message: str) -> str:
+def generate_response(messages) -> str:
 
     payload = {
         "model": MODEL_NAME,
@@ -13,19 +13,21 @@ def generate_response(message: str) -> str:
             {
                 "role": "system",
                 "content": SYSTEM_PROMPT,
-            },
+            }
+        ]
+        +
+        [
             {
-                "role": "user",
-                "content": message,
-            },
+                "role": "user" if msg.sender == "user" else "assistant",
+                "content": msg.text,
+            }
+            for msg in messages
         ],
         "stream": False,
         "think": False,
         "options": {
             "temperature": 0.1,
-            "num_predict": 100,
-            "top_k": 20,
-            "top_p": 0.8,
+            "num_predict": 120,
         },
     }
 
@@ -40,12 +42,7 @@ def generate_response(message: str) -> str:
 
         data = response.json()
 
-        text = data["message"]["content"].strip()
-
-        if not text:
-            return "Sorry, I couldn't generate guidance. Please try again."
-
-        return text
+        return data["message"]["content"].strip()
 
     except Exception as e:
         return f"Backend error: {e}"
