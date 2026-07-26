@@ -1,22 +1,27 @@
-import { useState } from "react";
+import {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 
-function ChatBox() {
+const ChatBox = forwardRef(function ChatBox(props, ref) {
+
   const [messages, setMessages] = useState([
     {
       sender: "assistant",
-      text: "Hello! I'm ReadyNow AI. Describe your emergency or preparedness question.",
+      text: "Hello! I'm ReadyNow AI.",
     },
   ]);
 
   const [input, setInput] = useState("");
+
   const [loading, setLoading] = useState(false);
 
-  async function handleSend() {
-    if (!input.trim()) return;
+  async function sendMessage(userMessage) {
 
-    const userMessage = input;
+    if (!userMessage.trim()) return;
 
-    setMessages((prev) => [
+    setMessages(prev => [
       ...prev,
       {
         sender: "user",
@@ -24,49 +29,56 @@ function ChatBox() {
       },
     ]);
 
-    setInput("");
     setLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: userMessage,
-        }),
-      });
+
+      const response = await fetch(
+        "http://127.0.0.1:8000/chat",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            message: userMessage,
+          }),
+        }
+      );
 
       const data = await response.json();
 
-      setMessages((prev) => [
+      setMessages(prev => [
         ...prev,
         {
           sender: "assistant",
           text: data.response,
         },
       ]);
-    } catch (error) {
-      setMessages((prev) => [
+
+    } catch {
+
+      setMessages(prev => [
         ...prev,
         {
           sender: "assistant",
-          text: "Unable to connect to the backend.",
+          text: "Unable to connect.",
         },
       ]);
 
-      console.error(error);
     }
 
     setLoading(false);
+
+    setInput("");
+
   }
 
-  function handleKeyDown(event) {
-    if (event.key === "Enter") {
-      handleSend();
-    }
-  }
+  useImperativeHandle(ref, () => ({
+    sendMessage,
+  }));
 
   return (
     <div className="chat-box">
@@ -74,38 +86,48 @@ function ChatBox() {
       <div className="messages">
 
         {messages.map((message, index) => (
+
           <div
             key={index}
-            className={`message ${message.sender}`}
+            className="message"
           >
+
             <strong>
-              {message.sender === "user" ? "You" : "ReadyNow AI"}
+
+              {message.sender === "assistant"
+                ? "ReadyNow AI"
+                : "You"}
+
             </strong>
 
             <p>{message.text}</p>
+
           </div>
+
         ))}
 
-        {loading && (
-          <div className="message assistant">
-            <strong>ReadyNow AI</strong>
-            <p>Thinking...</p>
-          </div>
-        )}
+        {loading && <p>Analyzing emergency...</p>}
 
       </div>
 
       <div className="chat-input">
 
         <input
-          type="text"
-          placeholder="Describe your emergency..."
           value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
+          placeholder="Describe your situation..."
+          onChange={(e) =>
+            setInput(e.target.value)
+          }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessage(input);
+            }
+          }}
         />
 
-        <button onClick={handleSend}>
+        <button
+          onClick={() => sendMessage(input)}
+        >
           Send
         </button>
 
@@ -113,6 +135,7 @@ function ChatBox() {
 
     </div>
   );
-}
+
+});
 
 export default ChatBox;
