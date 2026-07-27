@@ -148,7 +148,7 @@ The application is designed to assist during emergencies, not replace trained re
 
 ---
 
-# Architecture
+## Architecture
 
 ```
                  React Frontend
@@ -189,7 +189,7 @@ The application is designed to assist during emergencies, not replace trained re
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```
 readynow-ai/
@@ -222,9 +222,9 @@ readynow-ai/
 
 ---
 
-# Setup Instructions
+## Setup Instructions
 
-## Requirements
+### Requirements
 
 Install:
 
@@ -234,7 +234,7 @@ Install:
 
 ---
 
-# 1. Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone <repository-url>
@@ -244,7 +244,7 @@ cd readynow-ai
 
 ---
 
-# 2. Setup Gemma 4
+### 2. Setup Gemma 4
 
 Install Ollama:
 
@@ -270,7 +270,7 @@ Exit with:
 
 ---
 
-# 3. Setup Backend
+### 3. Setup Backend
 
 Navigate to backend:
 
@@ -312,7 +312,7 @@ http://127.0.0.1:8000
 
 ---
 
-# 4. Setup Frontend
+### 4. Setup Frontend
 
 Open another terminal.
 
@@ -342,7 +342,7 @@ http://localhost:5173
 
 ---
 
-# Running the Application
+## Running the Application
 
 Three services must be running:
 
@@ -380,9 +380,9 @@ http://localhost:5173
 
 ---
 
-# Design Decisions
+## Design Decisions
 
-## Why Local AI?
+### Why Local AI?
 
 Disaster situations can involve:
 
@@ -394,7 +394,7 @@ Running Gemma 4 locally allows the application to continue functioning without d
 
 ---
 
-## Why Gemma 4?
+### Why Gemma 4?
 
 Gemma 4 provides:
 
@@ -407,7 +407,7 @@ These capabilities make it suitable for an offline emergency assistant prototype
 
 ---
 
-# Limitations
+## Limitations
 
 ReadyNow AI is a prototype.
 
@@ -427,8 +427,14 @@ Future improvements could include:
 
 ---
 
-# Track Alignment
+## Track Alignment
 
 ## Edge / On-Device Track
 
 ReadyNow AI demonstrates local AI inference using Gemma 4, enabling privacy-focused emergency assistance without requiring cloud-based AI services.
+
+---
+
+## Live Demo
+
+Demo Video Link (Google Drive): https://drive.google.com/file/d/1BrH6nslqEmuEixN5xX7H8uX_3YZMc8LC/view?usp=sharing
