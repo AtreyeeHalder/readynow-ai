@@ -259,7 +259,7 @@ ollama pull gemma4
 Verify:
 
 ```bash
-ollama run gemma4
+ollama run gemma4:latest
 ```
 
 Exit with:
@@ -351,7 +351,7 @@ Three services must be running:
 Ollama:
 
 ```bash
-ollama serve
+ollama run gemma4:latest
 ```
 
 ### Terminal 2
