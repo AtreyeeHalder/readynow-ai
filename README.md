@@ -438,3 +438,5 @@ ReadyNow AI demonstrates local AI inference using Gemma 4, enabling privacy-focu
 ## Live Demo
 
 Demo Video Link (Google Drive): https://drive.google.com/file/d/1BrH6nslqEmuEixN5xX7H8uX_3YZMc8LC/view?usp=sharing
+
+Note: No audio due to technical difficulties
